@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+if [[ "$1" == "on" ]]; then
+  sudo framework_tool --tablet-mode laptop;
+  sudo framework_tool --touchscreen-enable false;
+  kscreen-doctor output.eDP-1.disable;
+  echo "cyberdeck mode enabled";
+elif [[ "$1" == "off" ]]; then
+  sudo framework_tool --tablet-mode auto;
+  sudo framework_tool --touchscreen-enable true;
+  kscreen-doctor output.eDP-1.enable;
+  echo "Cyberdeck mode disabled";
+else
+  echo "Specify cyberdock on or cyberdeck off";
+fi
