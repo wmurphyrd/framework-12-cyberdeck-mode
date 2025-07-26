@@ -1,14 +1,33 @@
 #!/usr/bin/env bash
-if [[ "$1" == "on" ]]; then
+STATE_FILE="/tmp/cyberdeck-state"
+enable() {
+  kscreen-doctor output.eDP-1.disable;
   sudo framework_tool --tablet-mode laptop;
   sudo framework_tool --touchscreen-enable false;
-  kscreen-doctor output.eDP-1.disable;
+  echo 1 > "$STATE_FILE";
   echo "cyberdeck mode enabled";
-elif [[ "$1" == "off" ]]; then
+}
+disable() {
+  kscreen-doctor output.eDP-1.enable;
   sudo framework_tool --tablet-mode auto;
   sudo framework_tool --touchscreen-enable true;
-  kscreen-doctor output.eDP-1.enable;
+  echo 0 > "$STATE_FILE";
   echo "Cyberdeck mode disabled";
+}
+
+if [[ "$1" == "on" ]]; then
+  enable
+elif [[ "$1" == "off" ]]; then
+  disable
 else
-  echo "Specify cyberdock on or cyberdeck off";
+  if [ -f "$STATE_FILE" ]; then
+    ENABLED=$(<"$STATE_FILE")
+  else
+    ENABLED="0"
+  fi
+  if [[ "$ENABLED" == "1" ]]; then
+    disable
+  else
+    enable
+  fi
 fi

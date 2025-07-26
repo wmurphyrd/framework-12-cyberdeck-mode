@@ -37,13 +37,14 @@ Depends on the framework_tool cli from https://github.com/FrameworkComputer/fram
 
 * Enable cyberdeck mode with `cyberdeck on`
 * Return to normal operation with `cyberdeck off`
+* **Experimental:** toggle between modes with `cyberdeck`
 
 Notes: 
 
 The command will prompt for sudo password in order to
 execute the framework_tools commands
 
-Consider binding `cyberdeck off` to a keyboard shorcut
+Consider binding `cyberdeck` or `cyberdeck off` to a keyboard shorcut
 (System settings -> keyboard -> shortcuts)
 in case you
 left cyberdeck mode on but don't have your glasses handy, as the
